@@ -57,17 +57,41 @@ export function createGame(options) {
       screenTwo
         .querySelector('h2')
         .innerText = `Acertou em ${state.attempt} tentativas!`
+    } else {
+      wrongAnswer()
     }
 
     inputNumber.value = ''
   }
 
   function handleResetClick(event) {
-    event?.preventDefault()
+    if (event.target) {
+      event.preventDefault()
+    }
+
+    reset()
+  }
+
+  function reset() {
     toggleScreen()
 
     randomNumber = getRandomNumber(state.min, state.max)
     state.attempt = 0
+  }
+
+  function wrongAnswer() {
+    const form = screenOne.querySelector('form')
+    const wrongClassName = 'wrong-answer'
+    const timeoutInMilliseconds = 1000 * 0.8 // 800ms
+
+    form.classList.add(wrongClassName)
+    inputNumber.disabled = true
+
+    setTimeout(() => {
+      form.classList.remove(wrongClassName)
+      inputNumber.disabled = false
+      inputNumber.focus()
+    }, timeoutInMilliseconds)
   }
 
   function toggleScreen() {
@@ -85,7 +109,7 @@ export function createGame(options) {
         const isScreenOneHidden = screenOne.classList.contains('hide')
 
         if (isScreenOneHidden) {
-          handleResetClick(params)
+          reset()
         }
       }
     }

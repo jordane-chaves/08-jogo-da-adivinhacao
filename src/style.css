@@ -14,6 +14,7 @@
   --color-blue-300: #7879f1;
   --color-blue-400: #5958ed;
   --color-gray-100: #dce1e9;
+  --color-red-500: #e40e20;
 }
 
 body {
@@ -106,4 +107,42 @@ h2 {
   line-height: 1.5;
 
   margin-bottom: 3.4rem;
+}
+
+.wrong-answer {
+  --duration: 0.8s;
+  animation: shake-horizontal var(--duration) cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+.wrong-answer > input {
+  outline: 2px solid var(--color-red-500);
+}
+
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
 }
